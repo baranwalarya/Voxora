@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { CiMicrophoneOn } from "react-icons/ci";
 
 const themes = {
     dark: {
@@ -152,7 +153,7 @@ function AssistantPreview() {
                         <p className={`text-sm sm:text-base font-medium ${current.listening} `}>Listening...</p>
 
                         <div className='flex items-end justify-center gap-1 sm:gap-1.5 mt-3 sm:mt-4'>
-                            
+
                             <span className={`w-1 h-3 rounded-full ${current.wave} animate-pulse`} />
 
                             <span className={`w-1 h-6 rounded-full ${current.wave} animate-pulse`} />
@@ -170,8 +171,17 @@ function AssistantPreview() {
                     </div>
                 </div>
 
-            </div>
+                <div className='relative mb-1'>
+                    <div className={`absolute inset-0 rounded-full blur-2xl opacity-60 ${current.wave}`} />
 
+                    <button className={`relative w-12 h-12 sm:w-15 sm:h-15 md:w-18 md:h-18 rounded-full bg-gradient-to-br ${current.button} ${current.micGlow} flex items-center justify-center`}>
+                        <CiMicrophoneOn className='text-[#000000b9]' size={25} />
+                    </button>
+                </div>
+
+
+
+            </div>
         </div>
     </div>
   )
