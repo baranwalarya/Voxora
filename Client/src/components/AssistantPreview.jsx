@@ -148,7 +148,25 @@ function AssistantPreview() {
                     </p>
 
                     <div className='mt-6 sm:mt-8'>
+
                         <p className={`text-sm sm:text-base font-medium ${current.listening} `}>Listening...</p>
+
+                        <div className='flex items-end justify-center gap-1 sm:gap-1.5 mt-3 sm:mt-4'>
+                            
+                            <span className={`w-1 h-3 rounded-full ${current.wave} animate-pulse`} />
+
+                            <span className={`w-1 h-6 rounded-full ${current.wave} animate-pulse`} />
+
+                            <span className={`w-1 h-2 rounded-full ${current.wave} animate-pulse`} />
+
+                            <span className={`w-1 h-7 rounded-full ${current.wave} animate-pulse`} />
+
+                            <span className={`w-1 h-4 rounded-full ${current.wave} animate-pulse`} />
+
+                            <span className={`w-1 h-2 rounded-full ${current.wave} animate-pulse`} />
+
+                        </div>
+
                     </div>
                 </div>
 
