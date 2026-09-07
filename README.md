@@ -1,3 +1,4 @@
+
 # Voxora 🎙️
 
 Voxora is an AI-powered voice assistant and website navigation platform built using the MERN stack. It allows users to interact with a website using natural voice commands and receive real-time AI-powered responses.

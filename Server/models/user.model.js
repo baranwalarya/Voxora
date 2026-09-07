@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-const pageSchema = new mongoose({
+const pageSchema = new mongoose.Schema({
     name:String,
     path:String,
     keywords:{
