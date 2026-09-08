@@ -34,9 +34,24 @@ export const saveAssistant = async (req,res) => {
         user.assistantName = assistantName;
         user.businessName = businessName;
         user.businessType = businessType;
-        use
+        user.businessDescription = businessDescription;
+        user.tone = tone;
+        user.theme = theme;
+        
+        if(geminiApiKey){
+            user.geminiApiKey = geminiApiKey;
+        }
+        user.geministatus = "active"
+        user.pages = pages || [];
+
+        user.isSetupComplete = true
+        await user.save()
+
+        return res.status(200).json({message:
+            "Assistant saved successfully", user
+        })
 
     } catch (error) {
-        
+        return res.status(500).json({message:`failed to save Assistant error ${error}`})
     }
 }
