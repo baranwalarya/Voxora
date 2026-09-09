@@ -1,5 +1,6 @@
 import React from 'react'
 import { useState } from 'react'
+import { FiPlus } from 'react-icons/fi';
 
 const THEMES = [
   "light",
@@ -130,9 +131,22 @@ function Builder({user,setUser}) {
                   </p>
                 </div>
 
-                <button className='flex items-center gap-2 x-4 py-2 rounded-xl bg-gradient-to-r from-purple-500 to-emerald-500 text-white text-sm'></button>
+                <button className='flex items-center gap-2 px-4 py-2 rounded-xl bg-gradient-to-r from-purple-500 to-emerald-500 text-white text-sm'>
+                  <FiPlus />Add
+                </button>
 
               </div>
+
+
+               <div className='grid grid-cols-1 sm:grid-cols-3 gap-3'>
+                  <input type="text" placeholder='Page Name' className='border border-gray-200 rounded-2xl px-4 py-3' onChange={(e)=>setPageName(e.target.value)} value={[pageName]}  />
+
+                  <input type="text" placeholder='/pricing' className='border border-gray-200 rounded-2xl px-4 py-3' onChange={(e)=>setPagePath(e.target.value)} value={[pagePath]}  />
+
+                  <input type="text" placeholder='Pricing , Plan' className='border border-gray-200 rounded-2xl px-4 py-3' onChange={(e)=>setPageKeywords(e.target.value)} value={[pageKeywords]}  />
+               </div> 
+
+
             </div>
 
           </div>
