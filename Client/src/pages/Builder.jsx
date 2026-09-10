@@ -1,6 +1,12 @@
+
 import React from 'react'
 import { useState } from 'react'
-import { FiPlus } from 'react-icons/fi';
+import { FiPlus, FiTrash2 } from 'react-icons/fi';
+import { toast } from "react-hot-toast";
+import axios from "axios";
+import { CLIENT_URL } from '../App.jsx';
+
+const serverUrl = "http://localhost:8000";
 
 const THEMES = [
   "light",
@@ -16,6 +22,8 @@ const TONES = [
 ]
 
 function Builder({user,setUser}) {
+
+  const [editAssistant , setEditAssistant] = useState(!user?.isSetupComplete)
 
   const [assistantName , setAssistantName] = useState(user?.assistantName || "");
 
@@ -38,6 +46,76 @@ function Builder({user,setUser}) {
 
   const [pageKeywords, setPageKeywords] = useState("");
 
+  const [loading,setLoading] = useState(false)
+
+  const addPage = ()=>{
+    if(!pageName || !pagePath) return;
+
+    const newPage = {
+      name:pageName,
+      path:pagePath,
+      keywords:pageKeywords.split(",").map((k) => k.trim())
+    }
+    setPages([...pages,newPage])
+    setPageName("")
+    setPagePath("")
+    setPageKeywords("")
+  }
+
+  const removePage = (index) =>{
+    const updatePages = pages.filter((_,i)=>i !== index)
+
+    setPages(updatePages)
+  } 
+
+  const saveAssistant =async () => {
+    setLoading(true)
+    try {
+      const data = {
+        assistantName,
+        businessName,
+        businessType,
+        businessDescription,
+        tone,
+        theme,
+        geminiApiKey,
+        pages,
+      }
+
+      const res = await axios.post(serverUrl + "/api/user/save-assistant" , data , {withCredentials:true})
+      console.log(res.data)
+      setUser(res.data.user)
+      setEditAssistant(false)
+      toast.success("Assistant Saved Successfully")
+      setLoading(false)
+    } catch (error) {
+      toast.error("Failed to save assistant")
+      console.log(error)
+      setLoading(false)
+    }
+  }
+
+  const remainingMessages = Math.max(
+    0,
+    (user?.requestLimit || 0) -
+    (user?.totalMessages || 0)
+  );
+
+  const remainingDays = 
+  user?.proExpiresAt
+    ? Math.max(
+      0,
+      Math.ceil(
+        (
+          new Date(
+            user.proExpiresAt
+          ) - new Date()
+        ) /
+        (1000 * 60 * 60 * 24)
+      )
+    )
+    : 0;
+
   return (
     <div className='min-h-screen bg-[#f7f8fc] px-4 py-8'>
         <div className='max-w-4xl mx-auto'>
@@ -48,7 +126,90 @@ function Builder({user,setUser}) {
             <p className='text-gray-500 mt-1'>Customize your virtual assistant</p>
           </div>
 
-          <div className='space-y-6'>
+          {user.isSetupComplete && !editAssistant && (
+            <div className='bg-white rounded-3xl border border-gray-100 shadow-sm p-6 mb-6'>
+
+              <p className='text-sm text-gray-400'>Assistant</p>
+
+              <h2 className='text-3xl font-bold text-[#081028] mt-1'>
+                {user.assistantName}
+              </h2>
+
+              <p className='text-gray-500 mt-3 leading-7'>
+                Your assistant is ready to use on your websites.
+              </p>
+
+              <div className='grid grid-cols-1 sm:grid-cols-3 gap-4 mt-6'>
+
+                <div className='rounded-2xl border border-gray-100 bg-[#f8fafc] p-4'>
+                  <p className='text-sm text-gray-400'>Current Plan</p>
+                  <h2 className='text-xl font-bold text-[#081028] mt-1 capitalize'>{user?.plan}</h2>
+                </div>
+
+                <div className='rounded-2xl border border-gray-100 bg-[#f8fafc] p-4'>
+                  <p className='text-sm text-gray-400'>Gemini Status</p>
+                  <h2 className={`text-xl font-bold mt-1 capitalize ${user?.geminiStatus === "active"
+                      ? "text-emerald-600"
+                      : user?.geminiStatus === "invalid"
+                        ? "text-red-500"
+                        : "text-amber-500"
+                    }`}>{user?.geminiStatus}</h2>
+                </div>
+
+                <div className='rounded-2xl border border-gray-100 bg-[#f8fafc] p-4'>
+                  <p className='text-sm text-gray-400'>{user?.plan === "free"
+                    ? "Messages Left"
+                    : "Plan Expiry"}</p>
+                  <h2 className='text-xl font-bold text-[#081028] mt-1 capitalize'>{user?.plan === "free"
+                    ? remainingMessages
+                    : `${remainingDays} Days`
+                  }</h2>
+                </div>
+
+              </div>
+
+              <div className='mt-7'>
+                  <div className='mt-4 rounded-2xl bg-amber-50 border border-amber-200 p-4'>
+                    <p className='text-sm font-semibold text-amber-900'>
+                      Where to paste this script?
+                    </p>
+
+                    <p className='text-sm text-amber-700 mt-2 leading-6'>
+                      Paste this script before the closing {" "}
+                      <span className='font-semibold'>
+                        {"</body>"}
+                      </span>
+                      {" "}
+                      tag of your website HTML file.
+                      <br />
+                      <br />
+                      Example:  
+                    </p>
+
+                    <pre className='mt-3 bg-[#0b1020] text-emerald-400 rounded-xl p-3 text-xs font-mono overflow-x-auto'>
+                        {`<body>
+
+    Your Website Content
+                        
+    <script src="${CLIENT_URL}/assistant.js" data-user-id="${user?._id}></script>
+
+</body`}
+                    </pre>
+                  </div>
+
+                   <p className='text-sm font-medium text-[#081028] mb-3'>Embed Code</p>   
+
+              </div>
+
+              <div className='relative'>
+                textara
+                <button></button>
+              </div>
+
+            </div>
+          )}
+
+          {editAssistant && <div className='space-y-6'>
             <div className='bg-white rounded-3xl border border-gray-100 shadow-sm p-6'>
               <h2 className='text-lg font-semibold mb-5'>Basic Information</h2>
 
@@ -131,7 +292,7 @@ function Builder({user,setUser}) {
                   </p>
                 </div>
 
-                <button className='flex items-center gap-2 px-4 py-2 rounded-xl bg-gradient-to-r from-purple-500 to-emerald-500 text-white text-sm'>
+                <button onClick={addPage} className='flex items-center gap-2 px-4 py-2 rounded-xl bg-gradient-to-r from-purple-500 to-emerald-500 text-white text-sm'>
                   <FiPlus />Add
                 </button>
 
@@ -146,10 +307,32 @@ function Builder({user,setUser}) {
                   <input type="text" placeholder='Pricing , Plan' className='border border-gray-200 rounded-2xl px-4 py-3' onChange={(e)=>setPageKeywords(e.target.value)} value={[pageKeywords]}  />
                </div> 
 
+              <div className='mt-5 space-y-3'>
+                {
+                  pages.map((page,index)=>(
+                    <div key={index} className='flex items-center justify-between border border-gray-100 rounded-2xl p-4'>
+                      <div>
+                        <p className='font-medium'>{page.name}</p>
+                        <p className='text-sm text-gray-400'>{page.path}</p>
+                        {/* <p className='text-sm text-gray-400'>{page.keywords}</p> */}
+                      </div>
+                      <button onClick={()=>removePage(index)} className='text-red-500'>
+                        <FiTrash2 />
+                      </button>
+                    </div>
+                  ))
+                }
+              </div>
 
             </div>
 
-          </div>
+            <button onClick={saveAssistant} disabled={loading} className='w-full h-14 rounded-2xl bg-gradient-to-r from-purple-500 to-emerald-500 text-white font-semibold'>
+              {
+                loading ? "Saving..." : user.isSetupComplete ? "Update Assistant" : "Save Assistant"
+              }
+            </button>
+
+          </div>}
 
         </div>
 

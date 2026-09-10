@@ -41,7 +41,7 @@ export const saveAssistant = async (req,res) => {
         if(geminiApiKey){
             user.geminiApiKey = geminiApiKey;
         }
-        user.geministatus = "active"
+        user.geminiStatus = "active"
         user.pages = pages || [];
 
         user.isSetupComplete = true
