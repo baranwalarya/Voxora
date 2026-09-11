@@ -202,7 +202,7 @@ function Builder({user,setUser}) {
               </div>
 
               <div className='relative'>
-                textara
+                tex
                 <button></button>
               </div>
 
