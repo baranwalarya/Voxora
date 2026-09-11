@@ -1,7 +1,7 @@
 
 import React from 'react'
 import { useState } from 'react'
-import { FiPlus, FiTrash2 } from 'react-icons/fi';
+import { FiCopy, FiPlus, FiTrash2 } from 'react-icons/fi';
 import { toast } from "react-hot-toast";
 import axios from "axios";
 import { CLIENT_URL } from '../App.jsx';
@@ -116,6 +116,8 @@ function Builder({user,setUser}) {
     )
     : 0;
 
+    const embedCode = `<script src="${CLIENT_URL}/assistant.js" data-user-id="${user?._id}"></script>`;
+
   return (
     <div className='min-h-screen bg-[#f7f8fc] px-4 py-8'>
         <div className='max-w-4xl mx-auto'>
@@ -202,9 +204,16 @@ function Builder({user,setUser}) {
               </div>
 
               <div className='relative'>
-                tex
-                <button></button>
+                <textarea readOnly value={embedCode} className='w-full h-20 bg-[#0b1020] text-emerald-400 rounded-2xl p-4 text-sm font-mono resize-none outline-none'/>
+                <button onClick={()=>{
+                  navigator.clipboard.writeText(embedCode);
+                  toast.success("Copied")
+                }} className='absolute top-4 right-4 w-10 h-10 rounded-xl bg-white flex items-center justify-center'>
+                  <FiCopy />
+                </button>
               </div>
+
+              <button onClick={()=>setEditAssistant(true)} className='mt-6 h-12 px-6 rounded-2xl bg-gradient-to-r from-purple-500 to-emerald-500 text-white font-medium'>Edit Assistant</button>
 
             </div>
           )}
