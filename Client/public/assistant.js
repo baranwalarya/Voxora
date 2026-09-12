@@ -81,7 +81,7 @@
                 </button>
 
             </div>
-            
+
         </div>
     `;
 
@@ -98,5 +98,15 @@
         alt="logo"
     />`
     
+    document.body.appendChild(button)
+
+    // toggle popup
+
+    let open = false
+
+    button.onclick = ()=>{
+        open = !open;
+        popup.style.display = open ? "flex":"none";
+    }
 
 })();

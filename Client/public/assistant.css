@@ -1,4 +1,27 @@
+/* toggle button */
 
+.voxora-btn{
+    position: fixed;
+    right: 18px;
+    bottom: 18px;
+    width: 68px;
+    height: 68px;
+    border: none;
+    border-radius: 999px;
+    cursor: pointer;
+    z-index: 999999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    transition: 3s;
+}
+
+.voxora-btn img{
+   width: 34px;
+   height: 34px;
+   object-fit: contain; 
+}
 
 /* popup */
 
@@ -19,7 +42,7 @@
     overflow: hidden;
 
     z-index: 999999;
-    display: flex;
+    display: none;
 
     box-shadow: 0 20px 80px rgba(0,0,0,.32);
 }
@@ -294,7 +317,9 @@
     DARK THEME BUTTONS
 =============================== */
 
-.theme-dark .voxora-mic{
+.theme-dark .voxora-mic,
+.theme-dark.voxora-btn
+{
     background: 
         linear-gradient(
         135deg,
@@ -308,6 +333,279 @@
         0 0 90px rgba(79,140,255,.38),
         0 0 140px rgba(124,58,237,.22);
 }
+
+
+/* =========Light Theme========= */
+
+.theme-light{
+    background: 
+        linear-gradient(
+        135deg,
+        #ffffff,
+        #eef6ff
+    );
+    border:1px solid #dbeafe;
+}
+
+.theme-light .voxora-overlay{
+    background:radial-gradient(
+        circle at top,
+        rgba(59,130,246,.12),
+        transparent 45%
+    );
+}
+
+.theme-light .voxora-orb,
+.theme-light .voxora-orb-glow{
+    background: 
+        linear-gradient(
+        135deg,
+        #7dd3fc,
+        #67e8f9,
+        #f5d0fe
+    );
+}
+
+.theme-light .voxora-title{
+    color: #081028;
+}
+
+.theme-light .voxora-sub{
+    color: #475569;
+}
+
+.theme-light .voxora-status{
+    color: #3b82f6;
+}
+
+.theme-light .voxora-wave span{
+    background: #60a5fa;
+}
+
+.theme-light .voxora-user-text{
+    color: #081028;
+}
+
+.theme-light .voxora-ai-text{
+    color: #475569;
+}
+
+/* ===============================
+    LIGHT THEME BUTTONS
+=============================== */
+
+.theme-light .voxora-mic,
+.theme-light.voxora-btn
+{
+    background: 
+        linear-gradient(
+        135deg,
+        #60a5fa,
+        #06b6d4
+    );
+
+    /* Large premium glow */
+    box-shadow:
+        0 0 30px rgba(59,130,246,.38),
+        0 0 85px rgba(6,182,212,.28),
+        0 0 130px rgba(59,130,246,.16);
+}
+
+/* =========Glass Theme========= */
+
+.theme-glass{
+    background: 
+        rgba(0,0,0,.28);
+
+        backdrop-filter:blur(45px);
+
+        -webkit-backdrop-filter: blur(45px);
+
+        border:1px solid rgba(255,255,255,.08);
+}
+
+.theme-glass .voxora-overlay{
+    background:radial-gradient(
+        circle at top,
+        rgba(255,255,255,.05),
+        transparent 45%
+    );
+}
+
+.theme-glass .voxora-orb,
+.theme-glass .voxora-orb-glow{
+    background: 
+        linear-gradient(
+        135deg,
+        #bae6fd,
+        #c4b5fd,
+        #f5d0fe
+    );
+}
+
+.theme-glass .voxora-title{
+    color: white;
+}
+
+.theme-glass .voxora-sub{
+    color: rgba(255,255,255,.75);
+}
+
+.theme-glass .voxora-status{
+    color: #a5f3fc;
+}
+
+.theme-glass .voxora-wave span{
+    background: #a5f3fc;
+}
+
+.theme-glass .voxora-user-text{
+    color: white;
+}
+
+.theme-glass .voxora-ai-text{
+    color: rgba(255,255,255,.72);
+}
+
+/* ===============================
+    GLASS THEME BUTTONS
+=============================== */
+
+.theme-glass .voxora-mic,
+.theme-glass.voxora-btn
+{
+    background: 
+        linear-gradient(
+        135deg,
+        #38bff8a3,
+        #8a5cf6a8
+    );
+
+    /* Frosted neon glow */
+    box-shadow:
+        0 0 35px rgba(34,211,238,.34),
+        0 0 95px rgba(139,92,246,.28),
+        0 0 150px rgba(56,189,248,.18);
+}
+
+
+/* =========Neon Theme========= */
+
+.theme-neon{
+    background: #03120d;
+    border:1px solid rgba(16,185,129,.18);
+}
+
+.theme-neon .voxora-overlay{
+    background:radial-gradient(
+        circle at top,
+        rgba(16,185,129,.18),
+        transparent 45%
+    );
+}
+
+.theme-neon .voxora-orb,
+.theme-neon .voxora-orb-glow{
+    background: 
+        linear-gradient(
+        135deg,
+        #34d399,
+        #10b981,
+        #14b8a6
+    );
+}
+
+.theme-neon .voxora-title{
+    color: #ecfdf5;
+}
+
+.theme-neon .voxora-sub{
+    color: rgba(209,250,229,.72);
+}
+
+.theme-neon .voxora-status{
+    color: #6ee7b7;
+}
+
+.theme-neon .voxora-wave span{
+    background: #6ee7b7;
+}
+
+.theme-neon .voxora-user-text{
+    color: #ecfdf5;
+}
+
+.theme-neon .voxora-ai-text{
+    color: rgba(209,250,229,.75);
+}
+
+/* ===============================
+    NEON THEME BUTTONS
+=============================== */
+
+.theme-neon .voxora-mic,
+.theme-neon.voxora-btn
+{
+    background: 
+        linear-gradient(
+        135deg,
+        #10b981,
+        #22c55e
+    );
+
+    /* Large premium glow */
+    box-shadow:
+        0 0 35px rgba(16,185,129,.45),
+        0 0 95px rgba(34,197,94,.32),
+        0 0 150px rgba(16,185,129,.20);
+}
+
+
+@media(max-width:640px){
+    .voxora-popup{
+        width: 340px;
+        min-width: 340px;
+        max-width: 340px;
+
+        height: 560px;
+        min-height: 560px;
+        max-height: 560px;
+
+        right: 50%;
+        transform: translateX(50%);
+        bottom: 82px;
+
+        border-radius: 30px;
+    }
+
+    .voxora-btn{
+        width: 64px;
+        height: 64px;
+        right: 14px;
+        bottom: 14px;
+    }
+
+    .voxora-btn img{
+        width: 30px;
+        height: 30px;
+    }
+
+    .voxora-title{
+        font-size: 26px;
+    }
+
+    .voxora-sub{
+        font-size: 13px;
+    }
+}
+
+
+
+
+
+
+
+
 
 
 
