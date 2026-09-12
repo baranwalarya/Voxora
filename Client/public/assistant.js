@@ -16,7 +16,7 @@
 
     link.rel = "stylesheet"
 
-    link.href = "http://localhost:5173/assistaant.css"
+    link.href = "http://localhost:5173/assistant.css"
 
     document.head.appendChild(link)
 
@@ -49,8 +49,8 @@
                     Ask anything about your website.
                 </p>
 
-                <div class="voxora-status>
-                    Top button to Speak
+                <div class="voxora-status">
+                    Tap button to Speak
                 </div>
 
                 <div class="voxora-wave">
@@ -63,15 +63,40 @@
                 </div>
 
                 <!-- User Text -->
-                    <div class="voxora-user-text"></div>
+                    <div class="voxora-user-text">
+                        
+                    </div>
 
                 <!-- AI Text -->
-                    <div class="voxora-ai-text"></div>
-
+                    <div class="voxora-ai-text">
+                        
+                    </div>
 
             </div>
-        
+
+            <div class="voxora-bottom">
+
+                <button class="voxora-mic">
+                    <img src="http://localhost:5173/mic.svg" alt="mic" class="voxora-mic-icon"/>
+                </button>
+
+            </div>
+            
         </div>
     `;
+
+    document.body.appendChild(popup);
+
+    // floating button
+
+    const button = document.createElement("button")
+
+    button.className = `voxora-btn theme-${theme}`
+
+    button.innerHTML = `
+        <img src="http://localhost:5173/logo.png"
+        alt="logo"
+    />`
+    
 
 })();
