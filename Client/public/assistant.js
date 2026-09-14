@@ -8,7 +8,7 @@
 
     const theme = "dark"
 
-    const assistantConfig = null
+    let assistantConfig = null
 
     // load css
 
@@ -108,5 +108,47 @@
         open = !open;
         popup.style.display = open ? "flex":"none";
     }
+
+
+    // load Assistant
+
+    const loadAssistant = async () => {
+        try {
+            const res = await fetch(`http://localhost:8000/api/assistant/config/${userId}`)
+
+            const data = await res.json();
+
+            console.log(data);
+
+            if(data){
+                assistantConfig = data.user;
+                applyConfig()
+                
+            }
+        } catch (error) {
+            console.log("Assistant Load Error:",error);
+        }
+    }
+
+    const applyConfig = ()=>{
+        if(!assistantConfig)return;
+
+        popup.className = `voxora-popup theme-${assistantConfig.theme}`;
+
+        button.className = `voxora-btn theme-${assistantConfig.theme}`;
+
+        const title = popup.querySelector(".voxora-title");
+
+        title.innerHTML = `Hello! I'm ${assistantConfig.assistantName}`;
+
+        const subTitle = popup.querySelector(".voxora-sub")
+
+        subTitle.innerHTML = `Welcome to ${assistantConfig.businessName}.<br />
+        Ask anything about your website.`;
+
+    }
+
+    loadAssistant()
+
 
 })();
