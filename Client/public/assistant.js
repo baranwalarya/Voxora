@@ -118,7 +118,7 @@
 
             const data = await res.json();
 
-            console.log(data);
+            // console.log(data);
 
             if(data){
                 assistantConfig = data.user;
@@ -149,6 +149,91 @@
     }
 
     loadAssistant()
+
+
+    // ==================Speech Recognition===================
+    
+
+    // Element
+
+
+    const status = popup.querySelector(".voxora-status")
+
+    const wave = popup.querySelector(".voxora-wave");
+
+    const userText = popup.querySelector(".voxora-user-text");
+
+    const aiText = popup.querySelector(".voxora-ai-text");
+
+    const mic = popup.querySelector(".voxora-mic");
+
+    // text-speech conversion
+
+    const speak = (text) => {
+        window.speechSynthesis.cancel();
+
+    // Show AI response
+    aiText.innerText = text;
+
+    status.innerText = "AI Speaking...";
+
+        const speech = new SpeechSynthesisUtterance(text)
+
+        speech.lang = "hi-IN";
+
+        speech.rate = 1;
+
+        speech.pitch = 1;
+
+        speech.volume = 1;
+
+        // Voice end
+        speech.onend = () => {
+            status.innerText = "Tap button to Speak";
+
+            wave.style.opacity = "0";
+        };
+
+        // Start speaking
+        window.speechSynthesis.speak(
+            speech
+        );
+
+    }
+
+
+    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition
+
+    if(SpeechRecognition){
+        const recognition = new SpeechRecognition();
+
+        recognition.lang = "en-US";
+
+        recognition.continuous = false;
+
+        recognition.interimResults = false;
+
+        mic.onclick=()=>{
+            wave.style.opacity ="1";
+
+            status.innerText ="Listening...";
+
+            userText.innerText = "";
+
+            aiText.innerText = "";
+
+            recognition.start();
+        }
+
+        recognition.onresult=(e)=>{
+            const text = e.results[0][0].transcript
+
+            userText.innerText = "You: " + text;
+
+            recognition.stop();
+        }
+    }
+
 
 
 })();

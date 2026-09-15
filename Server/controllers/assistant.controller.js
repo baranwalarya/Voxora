@@ -103,7 +103,59 @@ export const askAssistant = async (req,res) => {
             }
         }
 
+
+
+        const prompt =`
+
+You are ${user.assistantName}.
+
+Business Name:
+${user.businessName}
+
+Business Type:
+${user.businessType}
+
+Business Description:
+${user.businessDescription}
+
+Assistant Tone:
+${user.tone}
+
+
+Rules:
+
+- Keep replies under 15 words
+- Give fast direct responses
+- Talk naturally
+- Behave like smart voice assistant
+- Avoid long explination
+- Keep responses short for quick voice playback
+
+User Question:
+${message}
+
+`;
+
+    const aiResponse = await generateGeminiResponse(prompt , user.geminiApiKey , user )
+
+    if(user.plan === "free"){
+        user.totalMessages += 1
+
+        await user.save()
+    }
+    
+    return res.json({
+        success:true,
+        aiResponse
+    });
+
+
+
     } catch (error) {
-        
+        console.log(error)
+
+        return res.status(500).json({success:false,
+            message:"Assistant AI Error",
+        });
     }
 }
