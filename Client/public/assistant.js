@@ -225,13 +225,7 @@
             recognition.start();
         }
 
-        recognition.onresult=(e)=>{
-            const text = e.results[0][0].transcript
-
-            userText.innerText = "You: " + text;
-
-            recognition.stop();
-        }
+        
     }
 
 
