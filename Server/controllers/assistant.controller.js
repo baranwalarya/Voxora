@@ -1,5 +1,6 @@
 import { response } from "express"
 import User from "../models/user.model.js"
+import { generateGeminiResponse } from "../config/gemini.js"
 
 
 export const getAssistantConfig = async (req,res) => {
@@ -136,7 +137,7 @@ ${message}
 
 `;
 
-    const aiResponse = await generateGeminiResponse(prompt , user.geminiApiKey , user )
+    const aiResponse = await generateGeminiResponse({prompt ,apikey: user.geminiApiKey , user} )
 
     if(user.plan === "free"){
         user.totalMessages += 1
