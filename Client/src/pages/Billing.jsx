@@ -1,6 +1,21 @@
 import React from 'react'
+import { useEffect } from 'react';
+import toast from "react-hot-toast";
+import {useNavigate} from 'react-router-dom';
 
 function Billing({user}) {
+  const navigate = useNavigate()
+
+  useEffect(()=>{
+    if(user && !user.isSetupComplete){
+      toast.error(
+        "Setup your assistant first"
+      );
+
+      navigate("/builder");
+
+    }
+  },[])
 
   const remainingMessages = Math.max(
     0,
@@ -32,7 +47,7 @@ function Billing({user}) {
             <h2 className='text-3xl font-bold text-[#081028]'>
               Billing & Subscription
             </h2>
-            <p className='text-gray-500 mt-1'>Manage your I assistant plan and usage.</p>
+            <p className='text-gray-500 mt-1'>Manage your AI assistant plan and usage.</p>
           </div>
 
           <div className='grid grid-cols-1 sm:grid-cols-3 gap-4 mt-6'>

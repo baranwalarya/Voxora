@@ -1,6 +1,7 @@
-import { razorpay } from "../config/razorpay"
-import Billing from "../models/billing.model"
+import { razorpay } from "../config/razorpay.js"
+import Billing from "../models/billing.model.js"
 import crypto from "crypto"
+import User from "../models/user.model.js"
 
 export const createOrder = async (req,res) => {
     try {
@@ -67,8 +68,32 @@ export const verifyBilling =  async (req,res) => {
                 });
             }
 
-            await Billing.findOneAndUpdate({orderId : razorpay_order_id})
+            await Billing.findOneAndUpdate({orderId : razorpay_order_id} , {
+                paymentId: razorpay_payment_id,
+                status:"paid"
+            })
+
+            const user = await User.findByIdAndUpdate(userId, {
+                plan: "pro",
+
+                proExpiresAt:
+                new Date(
+                    Date.now() +
+                    90 * 24 * 60 * 1000
+                ),
+            },{new:true})
+
+            return res.json({
+                success:true,
+                user
+            })
     } catch (error) {
-        
+        console.log(error);
+
+        return res.status(500).json({
+            success: false,
+            message:
+                "Payment verification failed",
+        });
     }
 }

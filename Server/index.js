@@ -7,9 +7,10 @@ import cookieParser from "cookie-parser"
  import cors from "cors"
 import userRouter from "./routes/user.route.js"
 import assistantRouter from "./routes/assistant.route.js"
+import billingRouter from "./routes/billing.route.js"
 
 const app=express()
-const privatecors = 
+const privateCors = 
  cors({
    origin: [
       "http://localhost:5173"
@@ -30,8 +31,9 @@ const privatecors =
     res.json("Hello from Server")
  })
 
- app.use("/api/auth",privatecors, authRouter)
- app.use("/api/user",privatecors, userRouter)
+ app.use("/api/auth",privateCors, authRouter)
+ app.use("/api/user",privateCors, userRouter)
+  app.use("/api/billing",privateCors, billingRouter)
 
  app.use("/api/assistant",publicCors,assistantRouter)
 
