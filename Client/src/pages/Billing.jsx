@@ -2,6 +2,7 @@ import React from 'react'
 import { useEffect } from 'react';
 import toast from "react-hot-toast";
 import {useNavigate} from 'react-router-dom';
+import { ServerUrl } from '../App';
 
 function Billing({user}) {
   const navigate = useNavigate()
@@ -37,6 +38,17 @@ function Billing({user}) {
       )
     )
     : 0;
+
+    const handlePay = async () => {
+      try {
+        const res = await axios.post(ServerUrl + "/api/billing/order" , 
+          {plan: "pro"} , {withCredentials:true})
+
+          const order = res.data.order
+      } catch (error) {
+        
+      }
+    }
 
 
   return (
