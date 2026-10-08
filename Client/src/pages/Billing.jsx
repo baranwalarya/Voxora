@@ -45,8 +45,29 @@ function Billing({user}) {
           {plan: "pro"} , {withCredentials:true})
 
           const order = res.data.order
+
+          const options = {
+            key:import.meta.env.VITE_RAZORPAY_KEY_ID,
+            amount:order.amount,
+            currency: order.currency,
+            name:"Voxora",
+            description:"Pro Plan",
+            order_id:order.id,
+            handler:async (response) => {
+              console.log(response)
+            },
+            theme:{
+              color:"#7c3aed",
+            },
+          }
+
+          const razorpay = new window.Razorpay(options)
+
+          razorpay.open()
       } catch (error) {
-        
+        toast.error("Payment Failed")
+
+        console.log(error)
       }
     }
 
@@ -139,6 +160,7 @@ function Billing({user}) {
               </ul>
 
               <button
+              onClick={handlePay}
                disabled={user?.plan === "pro"} className={`mt-8 h-14 w-full rounded-2xl font-semibold transition ${user?.plan === "pro"
               ? "bg-emerald-200 text-black cursor-default"
               : "bg-white text-[#081028] cursor-pointer"
