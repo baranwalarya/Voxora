@@ -3,6 +3,7 @@ import { useEffect } from 'react';
 import toast from "react-hot-toast";
 import {useNavigate} from 'react-router-dom';
 import { ServerUrl } from '../App';
+import axios from 'axios';
 
 function Billing({user}) {
   const navigate = useNavigate()
@@ -53,9 +54,16 @@ function Billing({user}) {
             name:"Voxora",
             description:"Pro Plan",
             order_id:order.id,
+
             handler:async (response) => {
-              console.log(response)
+              const verifyResponse = await axios.post(ServerUrl + "/api/billing/verify",response,{withCredentials:true})
+
+              if(verifyResponse.data.success)
+                toast.success("Payment Successfully")
+
+              
             },
+
             theme:{
               color:"#7c3aed",
             },
