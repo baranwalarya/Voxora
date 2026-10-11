@@ -57,7 +57,7 @@ export const verifyBilling =  async (req,res) => {
         const userId = req.userId
 
         const sign = crypto.createHmac("sha256" , process.env.RAZORPAY_KEY_SECRET).update(razorpay_order_id + 
-            " " +
+            "|" +
             razorpay_payment_id).digest("hex")
 
             if(sign !== razorpay_signature){
@@ -79,7 +79,7 @@ export const verifyBilling =  async (req,res) => {
                 proExpiresAt:
                 new Date(
                     Date.now() +
-                    90 * 24 * 60 * 1000
+                    90 * 24 * 60*60 * 1000
                 ),
             },{new:true})
 

@@ -5,7 +5,7 @@ import {useNavigate} from 'react-router-dom';
 import { ServerUrl } from '../App';
 import axios from 'axios';
 
-function Billing({user}) {
+function Billing({user,setUser}) {
   const navigate = useNavigate()
 
   useEffect(()=>{
@@ -58,10 +58,12 @@ function Billing({user}) {
             handler:async (response) => {
               const verifyResponse = await axios.post(ServerUrl + "/api/billing/verify",response,{withCredentials:true})
 
-              if(verifyResponse.data.success)
+              if(verifyResponse.data.success){
                 toast.success("Payment Successfully")
 
-              
+                setUser(verifyResponse.data.user)
+              }
+                
             },
 
             theme:{
