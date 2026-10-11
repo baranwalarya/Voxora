@@ -77,9 +77,6 @@
 
             <div class="voxora-bottom">
 
-               // <button class="voxora-mic">
-                //     <img src="http://localhost:5173/mic.svg" alt="mic" class="voxora-mic-icon"/>
-                // </button> 
 
                 <button class="voxora-mic">
                     <img src="https://voxora-cs0l.onrender.com/mic.svg" alt="mic" class="voxora-mic-icon"/>
@@ -89,6 +86,10 @@
 
         </div>
     `;
+
+    // <button class="voxora-mic">
+                //     <img src="http://localhost:5173/mic.svg" alt="mic" class="voxora-mic-icon"/>
+                // </button> 
 
     document.body.appendChild(popup);
 
