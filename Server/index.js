@@ -13,7 +13,8 @@ const app=express()
 const privateCors = 
  cors({
    origin: [
-      "http://localhost:5173"
+      "http://localhost:5173",
+      "https://voxora-cs0l.onrender.com"
    ],
    credentials:true
  });
