@@ -3,9 +3,9 @@ import { useState } from 'react'
 import { FiCopy, FiPlus, FiTrash2 } from 'react-icons/fi';
 import { toast } from "react-hot-toast";
 import axios from "axios";
-import { CLIENT_URL } from '../App.jsx';
+import { CLIENT_URL, ServerUrl } from '../App.jsx';
 
-const serverUrl = "http://localhost:8000";
+// const serverUrl = "http://localhost:8000";
 
 const THEMES = [
   "light",
@@ -81,7 +81,7 @@ function Builder({user,setUser}) {
         pages,
       }
 
-      const res = await axios.post(serverUrl + "/api/user/save-assistant" , data , {withCredentials:true})
+      const res = await axios.post(ServerUrl + "/api/user/save-assistant" , data , {withCredentials:true})
       console.log(res.data)
       setUser(res.data.user)
       setEditAssistant(false)
