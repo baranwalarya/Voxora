@@ -13,7 +13,8 @@ import {Toaster} from "react-hot-toast"
 
 // export const ServerUrl = "http://localhost:8000"
 export const ServerUrl = "https://voxorabackend-ns0d.onrender.com"
-export const CLIENT_URL = "http://localhost:5173"
+//export const CLIENT_URL = "http://localhost:5173"
+export const CLIENT_URL = "https://voxora-cs0l.onrender.com"
 
 function App() {
 

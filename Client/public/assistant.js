@@ -16,7 +16,8 @@
 
     link.rel = "stylesheet"
 
-    link.href = "http://localhost:5173/assistant.css"
+    // link.href = "http://localhost:5173/assistant.css"
+    link.href = "https://voxora-cs0l.onrender.com/assistant.css"
 
     document.head.appendChild(link)
 
@@ -76,8 +77,12 @@
 
             <div class="voxora-bottom">
 
+               // <button class="voxora-mic">
+                //     <img src="http://localhost:5173/mic.svg" alt="mic" class="voxora-mic-icon"/>
+                // </button> 
+
                 <button class="voxora-mic">
-                    <img src="http://localhost:5173/mic.svg" alt="mic" class="voxora-mic-icon"/>
+                    <img src="https://voxora-cs0l.onrender.com/mic.svg" alt="mic" class="voxora-mic-icon"/>
                 </button>
 
             </div>
@@ -93,10 +98,16 @@
 
     button.className = `voxora-btn theme-${theme}`
 
+    // button.innerHTML = `
+    //     <img src="http://localhost:5173/logo.png"
+    //     alt="logo"
+    // />`
+
     button.innerHTML = `
-        <img src="http://localhost:5173/logo.png"
+        <img src="https://voxora-cs0l.onrender.com/logo.png"
         alt="logo"
     />`
+
     
     document.body.appendChild(button)
 
