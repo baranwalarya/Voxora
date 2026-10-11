@@ -11,7 +11,8 @@ import Builder from './pages/Builder.jsx'
 import Billing from './pages/Billing.jsx'
 import {Toaster} from "react-hot-toast"
 
-export const ServerUrl = "http://localhost:8000"
+// export const ServerUrl = "http://localhost:8000"
+export const ServerUrl = "https://voxorabackend-ns0d.onrender.com"
 export const CLIENT_URL = "http://localhost:5173"
 
 function App() {
